@@ -15,17 +15,27 @@ import {
 import {
   currentUserFetchStateSelector,
   usersFetchStateSelector,
+  usersSelector,
 } from 'selectors/main';
 
 
 export function* fetchUserDetails(action) {
   try {
+    const {payload: {userId}} = action;
+
+    // Check is user already fetched to whole list and return it if yes
+    const existingUsers = yield select(usersSelector);
+    const currentUser = existingUsers.find(({id})=> String(id) === userId);
+    if (currentUser) {
+      yield put(userFetched(currentUser));
+      return;
+    }
+
     const {isFetched, isFetching} = yield select(currentUserFetchStateSelector);
     if (isFetching || isFetched) {
       return;
     }
     yield put({type: USER_START_FETCHING});
-    const {payload: {userId}} = action;
     const data = yield call(()=> new Promise((resolve, reject)=> {
       fetch(
         `https://jsonplaceholder.typicode.com/users/${userId}`,
