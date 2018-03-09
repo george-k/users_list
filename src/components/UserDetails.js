@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import store from '../store';
 
-import {fetchUser} from '../actions/main';
+import {clearCurrentUser, fetchUser} from '../actions/main';
 
 import {currentUserSelector} from '../selectors/main';
 
@@ -23,6 +23,10 @@ class UserDetails extends Component {
   componentDidMount() {
     const {match: {params: {userId}}} = this.props;
     store.dispatch(fetchUser(userId));
+  }
+
+  componentWillUnmount() {
+    store.dispatch(clearCurrentUser());
   }
 
   render() {

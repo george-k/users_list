@@ -1,4 +1,5 @@
 import {
+  USER_CLEAR,
   USER_FETCHED,
   USER_START_FETCHING,
   USERS_FETCHED,
@@ -6,12 +7,16 @@ import {
 } from '../actions/main';
 
 
-export function currentUser(state = {
+const currentUserInitialState = {
   isfetched: false,
   isfetching: false,
   data: null,
-}, action) {
+};
+
+export function currentUser(state = currentUserInitialState, action) {
   switch (action.type) {
+    case USER_CLEAR:
+      return currentUserInitialState;
     case USER_FETCHED:
       return Object.assign({}, state, {
         isFetched: true,
