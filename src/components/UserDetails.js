@@ -2,6 +2,7 @@ import {chain, isObject} from 'lodash';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
+import {NavLink} from 'react-router-dom';
 
 import store from 'store';
 
@@ -46,6 +47,8 @@ class UserDetails extends Component {
     return (
       <Fragment>
         {rows}
+        <br />
+        <NavLink to="/users">Back to users list</NavLink>
       </Fragment>
     );
   }

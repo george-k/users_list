@@ -12,12 +12,15 @@ import {
   USERS_START_FETCHING,
 } from 'actions/main';
 
-import {usersFetchStateSelector} from '../selectors/main';
+import {
+  currentUserFetchStateSelector,
+  usersFetchStateSelector,
+} from 'selectors/main';
 
 
 export function* fetchUserDetails(action) {
   try {
-    const {isFetched, isFetching} = select(usersFetchStateSelector);
+    const {isFetched, isFetching} = yield select(currentUserFetchStateSelector);
     if (isFetching || isFetched) {
       return;
     }
@@ -38,7 +41,7 @@ export function* fetchUserDetails(action) {
 
 export function* fetchUsersList() {
   try {
-    const {isFetched, isFetching} = select(usersFetchStateSelector);
+    const {isFetched, isFetching} = yield select(usersFetchStateSelector);
     if (isFetching || isFetched) {
       return;
     }

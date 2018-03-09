@@ -25,14 +25,12 @@ export function currentUser(state = currentUserInitialState, action) {
         isFetchFailed: true,
       });
     case USER_FETCHED:
-      return Object.assign({}, state, {
+      return Object.assign({}, currentUserInitialState, {
         isFetched: true,
-        isFetching: false,
         data: action.payload.data,
       });
     case USER_START_FETCHING:
       return Object.assign({}, state, {
-        isFetched: false,
         isFetching: true,
       });
     default:
@@ -55,14 +53,12 @@ export function users(state = usersInitialState, action) {
         isFetchFailed: true,
       });
     case USERS_FETCHED:
-      return Object.assign({}, state, {
+      return Object.assign({}, usersInitialState, {
         isFetched: true,
-        isFetching: false,
         items: action.payload.items,
       });
     case USERS_START_FETCHING:
       return Object.assign({}, state, {
-        isFetched: false,
         isFetching: true,
       });
     default:
