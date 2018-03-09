@@ -8,7 +8,7 @@ import store from '../store';
 
 import {fetchUsers} from '../actions/main';
 
-import {usersSelector} from '../selectors/main';
+import {usersFetchStateSelector, usersSelector} from '../selectors/main';
 
 
 class UserRecord extends Component {
@@ -29,6 +29,7 @@ class UserRecord extends Component {
 class UsersList extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
+    fetchState: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -48,10 +49,14 @@ class UsersList extends Component {
   }
 
   render() {
-    return this.renderItems();
+    const {fetchState: {isFetching}} = this.props;
+    return isFetching ? (
+      <div>Loading, please wait...</div>
+    ) : this.renderItems();
   }
 }
 
 export default connect((state)=> ({
   items: usersSelector(state),
+  fetchState: usersFetchStateSelector(state),
 }))(UsersList);

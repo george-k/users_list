@@ -7,12 +7,16 @@ import store from '../store';
 
 import {clearCurrentUser, fetchUser} from '../actions/main';
 
-import {currentUserSelector} from '../selectors/main';
+import {
+  currentUserFetchStateSelector,
+  currentUserSelector,
+} from '../selectors/main';
 
 
 class UserDetails extends Component {
   static propTypes = {
     data: PropTypes.object,
+    fetchState: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
   };
 
@@ -30,7 +34,12 @@ class UserDetails extends Component {
   }
 
   render() {
-    const {data} = this.props;
+    const {data, fetchState: {isFetching}} = this.props;
+    if (isFetching) {
+      return (
+        <div>Loading, please wait...</div>
+      );
+    }
     const rows = chain(data).toPairs().orderBy(
       [(key)=> key], ['asc'],
     ).map(([key, value])=> (
@@ -49,4 +58,5 @@ class UserDetails extends Component {
 
 export default connect((state)=> ({
   data: currentUserSelector(state),
+  fetchState: currentUserFetchStateSelector(state),
 }))(UserDetails);
