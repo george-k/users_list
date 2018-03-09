@@ -5,8 +5,11 @@ import {
   userFetched,
   usersFetched,
   USER_FETCH,
+  USER_FETCH_FAILED,
+  USER_START_FETCHING,
   USERS_FETCH,
   USERS_FETCH_FAILED,
+  USERS_START_FETCHING,
 } from '../actions/main';
 
 import {usersFetchStateSelector} from '../selectors/main';
@@ -18,6 +21,7 @@ export function* fetchUserDetails(action) {
     if (isFetching || isFetched) {
       return;
     }
+    yield put({type: USER_START_FETCHING});
     const {payload: {userId}} = action;
     const data = yield call(()=> new Promise((resolve, reject)=> {
       fetch(
@@ -28,7 +32,7 @@ export function* fetchUserDetails(action) {
     }));
     yield put(userFetched(data));
   } catch (error) {
-    yield put({type: USERS_FETCH_FAILED});
+    yield put({type: USER_FETCH_FAILED});
   }
 }
 
@@ -38,6 +42,7 @@ export function* fetchUsersList() {
     if (isFetching || isFetched) {
       return;
     }
+    yield put({type: USERS_START_FETCHING});
     const users = yield call(()=> new Promise((resolve, reject)=> {
       fetch(
         'https://jsonplaceholder.typicode.com/users',

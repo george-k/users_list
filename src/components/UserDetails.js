@@ -34,8 +34,12 @@ class UserDetails extends Component {
   }
 
   render() {
-    const {data, fetchState: {isFetching}} = this.props;
-    if (isFetching) {
+    const {data, fetchState: {isFetchFailed, isFetching}} = this.props;
+    if (isFetchFailed) {
+      return (
+        <div>User details fetch failed...</div>
+      );
+    } else if (isFetching) {
       return (
         <div>Loading, please wait...</div>
       );

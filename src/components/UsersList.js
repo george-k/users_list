@@ -49,8 +49,10 @@ class UsersList extends Component {
   }
 
   render() {
-    const {fetchState: {isFetching}} = this.props;
-    return isFetching ? (
+    const {fetchState: {isFetchFailed, isFetching}} = this.props;
+    return isFetchFailed ? (
+      <div>Users fetch failed...</div>
+    ) : isFetching ? (
       <div>Loading, please wait...</div>
     ) : this.renderItems();
   }
