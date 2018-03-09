@@ -10,7 +10,7 @@ import {
   USERS_FETCH,
   USERS_FETCH_FAILED,
   USERS_START_FETCHING,
-} from '../actions/main';
+} from 'actions/main';
 
 import {usersFetchStateSelector} from '../selectors/main';
 

@@ -4,11 +4,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 
-import store from '../store';
+import store from 'store';
 
-import {fetchUsers} from '../actions/main';
+import {fetchUsers} from 'actions/main';
 
-import {usersFetchStateSelector, usersSelector} from '../selectors/main';
+import {usersFetchStateSelector, usersSelector} from 'selectors/main';
 
 
 class UserRecord extends Component {

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Redirect, Route, Switch} from 'react-router-dom';
+import {Redirect, Route} from 'react-router-dom';
 
-import UserDetails from './UserDetails';
-import UsersList from './UsersList';
+import UserDetails from 'components/UserDetails';
+import UsersList from 'components/UsersList';
 
 
 class App extends Component {

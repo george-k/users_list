@@ -6,7 +6,7 @@ import {
   USERS_FETCH_FAILED,
   USERS_FETCHED,
   USERS_START_FETCHING,
-} from '../actions/main';
+} from 'actions/main';
 
 
 const currentUserInitialState = {
@@ -45,7 +45,7 @@ const usersInitialState = {
   isFetchFailed: false,
   isFetched: false,
   isFetching: false,
-  items: null,
+  items: [],
 };
 
 export function users(state = usersInitialState, action) {

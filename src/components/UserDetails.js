@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 
-import store from '../store';
+import store from 'store';
 
-import {clearCurrentUser, fetchUser} from '../actions/main';
+import {clearCurrentUser, fetchUser} from 'actions/main';
 
 import {
   currentUserFetchStateSelector,
   currentUserSelector,
-} from '../selectors/main';
+} from 'selectors/main';
 
 
 class UserDetails extends Component {
@@ -33,17 +33,8 @@ class UserDetails extends Component {
     store.dispatch(clearCurrentUser());
   }
 
-  render() {
-    const {data, fetchState: {isFetchFailed, isFetching}} = this.props;
-    if (isFetchFailed) {
-      return (
-        <div>User details fetch failed...</div>
-      );
-    } else if (isFetching) {
-      return (
-        <div>Loading, please wait...</div>
-      );
-    }
+  renderDetails() {
+    const {data} = this.props;
     const rows = chain(data).toPairs().orderBy(
       [(key)=> key], ['asc'],
     ).map(([key, value])=> (
@@ -57,6 +48,15 @@ class UserDetails extends Component {
         {rows}
       </Fragment>
     );
+  }
+
+  render() {
+    const {fetchState: {isFetchFailed, isFetching}} = this.props;
+    return isFetchFailed ? (
+      <div>User details fetch failed...</div>
+    ) : isFetching ? (
+      <div>Loading, please wait...</div>
+    ) : this.renderDetails();
   }
 }
 
